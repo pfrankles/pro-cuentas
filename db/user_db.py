@@ -41,6 +41,10 @@ def update_user(user_in_db: User):
     return user_in_db
 
 def register_user(user_in_db: User):
-    database_users.append(user_in_db)
-    return user_in_db
+    if user_in_db.user in database_users.keys():
+        return "Usuario existente"
+    else:
+        a = {user_in_db.user: user_in_db}
+        database_users.update(a)
+        return a
 
