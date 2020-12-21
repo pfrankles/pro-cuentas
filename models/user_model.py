@@ -16,3 +16,9 @@ class userOut(BaseModel): #POST/
     name: str
     user: str
     email: str
+
+class UserInCrear(BaseModel): #GET
+    user: str
+    password: str
+    name: str
+    email: str
