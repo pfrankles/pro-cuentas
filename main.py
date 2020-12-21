@@ -1,6 +1,6 @@
 from fastapi import FastAPI 
 from pydantic import BaseModel
-from models.user_model import userIn,UserIn,userOut
+from models.user_model import UserInCrear,UserIn,userOut,userIn
 from db.user_db import User, get_user
 from db.user_db import update_user, register_user
 from fastapi import HTTPException
@@ -62,17 +62,13 @@ async def update_user(user_select: userIn):
 
 
 @app.put("/user/register/")
-async def register_user(user_select: userIn):
+async def formulario(user_select: userIn):
     
-    user_in = get_user(user_select.user)
-
-    if user_in != None: 
-        raise HTTPException(status_code=404, detail="Usuario ya existe")
-    
+    user_in_db = get_user(user_select.user)
+    if user_in_db != None:
+        raise HTTPException(status_code=404,
+                            detail="El usuario ya existe")
     else:
-        transaction_user = register_user(User(**user_select.dict()))
-
-        user_out = userOut(**user_select.dict())
-        return user_out
-        
+         a = register_user(user_select)
+         return a
        
